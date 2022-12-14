@@ -13,11 +13,11 @@
  *
  */
 export default class UserTable {
-  elem = null;
+  #elem = null;
   constructor(rows) {
-    this.elem = document.createElement("table");
-    this.elem.insertAdjacentHTML('afterbegin', this.#template(rows));
-    this.elem.addEventListener('click', this.#onTableClick);
+    this.#elem = document.createElement("table");
+    this.#elem.insertAdjacentHTML('afterbegin', this.#template(rows));
+    this.#elem.addEventListener('click', this.#onTableClick);
   }
 
   #template(rows) {
@@ -48,4 +48,8 @@ export default class UserTable {
     event.target.closest('tr').remove();
 
   }
+
+  get elem() {
+    return this.#elem;
+}
 }
