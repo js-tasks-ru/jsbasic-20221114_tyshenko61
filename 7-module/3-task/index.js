@@ -6,7 +6,6 @@ export default class StepSlider {
     this.value = value;
     this.elem = this.#render();
     this.elem.addEventListener('click', this.#onClick);
-    this.elem
   }
 
   #render() {
@@ -38,8 +37,8 @@ export default class StepSlider {
 
   #onClick(event) {
     const elem = event.currentTarget;
-    let thumb = elem.querySelector('.slider__thumb');
-    let progress = elem.querySelector('.slider__progress');
+    const thumb = elem.querySelector('.slider__thumb');
+    const progress = elem.querySelector('.slider__progress');
     let left = event.clientX - elem.getBoundingClientRect().left;
     let leftRelative = left / elem.offsetWidth;
     const sliderSteps = elem.querySelector('.slider__steps');
