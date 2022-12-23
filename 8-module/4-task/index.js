@@ -29,21 +29,21 @@ export default class Cart {
 
   updateProductCount(productId, amount) {
     const indexProductCart = this.cartItems.findIndex((item) => item.product.id === productId);
-    if (indexProductCart >= 0) {
-      this.cartItems[indexProductCart].count += amount;
-      if (this.cartItems[indexProductCart].count === 0) {
-        const productId = this.cartItems[indexProductCart].product.id;
-        const modalBody = document.querySelector('.modal__body');
-        modalBody.querySelector(`[data-product-id="${productId}"]`).remove();
-        this.cartItems.splice(indexProductCart, 1);
-        if (this.isEmpty()) {
-          this.modal.close();
-        }
-        this.cartIcon.update(this);
-      } else {
-        this.onProductUpdate(this.cartItems[indexProductCart]);
-      }
+    if (indexProductCart < 0) {
+      return;
     }
+    this.cartItems[indexProductCart].count += amount;
+    if (this.cartItems[indexProductCart].count > 0) {
+      this.onProductUpdate(this.cartItems[indexProductCart]);
+      return;
+    }
+    const modalBody = document.querySelector('.modal__body');
+    modalBody.querySelector(`[data-product-id="${productId}"]`).remove();
+    this.cartItems.splice(indexProductCart, 1);
+    if (this.isEmpty()) {
+      this.modal.close();
+    }
+    this.cartIcon.update(this);
   }
 
   isEmpty() {
@@ -110,6 +110,18 @@ export default class Cart {
   }
 
   renderModal() {
+    /*
+    в задании
+    3. Создает верстку корзины с корневым элементом `div` по принципу:
+```html
+<div>
+  < Карточка товара 1 /> <!-- результат вызова метода renderProduct -->
+  < Карточка товара 2 /> <!-- результат вызова метода renderProduct -->
+  <!-- ... остальные карточки товаров -->
+
+  < Форма заказа /> <!-- результат вызова метода renderOrderForm -->
+</div>
+    */
     this.modal = new Modal();
     this.modal.setTitle("Your order");
     const div = document.createElement('div');
