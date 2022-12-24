@@ -110,28 +110,18 @@ export default class Cart {
   }
 
   renderModal() {
-    /*
-    в задании
-    3. Создает верстку корзины с корневым элементом `div` по принципу:
-```html
-<div>
-  < Карточка товара 1 /> <!-- результат вызова метода renderProduct -->
-  < Карточка товара 2 /> <!-- результат вызова метода renderProduct -->
-  <!-- ... остальные карточки товаров -->
-
-  < Форма заказа /> <!-- результат вызова метода renderOrderForm -->
-</div>
-    */
     this.modal = new Modal();
     this.modal.setTitle("Your order");
-    const div = document.createElement('div');
-    this.cartItems.forEach((item) => div.appendChild(this.renderProduct(item.product, item.count)));
-    div.appendChild(this.renderOrderForm());
-    this.modal.setBody(div);
+    this.modalBody = document.createElement('div');
+    for (let {product, count} of this.cartItems) {
+      this.modalBody.append(this.renderProduct(product, count));
+    }
+    this.modalBody.append(this.renderOrderForm());
+
+    this.modalBody.addEventListener('click', this.onClickCounterButton);
+    this.modalBody.querySelector('.cart-form').addEventListener('submit', this.onSubmit);
+    this.modal.setBody(this.modalBody);
     this.modal.open();
-    this.modal.modal.addEventListener('click', this.onClickCounterButton);
-    const form = this.modal.modal.querySelector('.cart-form');
-    form.addEventListener('submit', this.onSubmit);
   }
 
   onClickCounterButton = (event) => {
