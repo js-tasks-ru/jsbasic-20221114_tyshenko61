@@ -17,12 +17,12 @@ export default class StepSlider {
     <div class="slider">
 
     <!--Ползунок слайдера с активным значением-->
-    <div class="slider__thumb">
-      <span class="slider__value">0</span>
+    <div class="slider__thumb" style="left: ${100 * this.value / (this.steps-1)}%;">
+      <span class="slider__value">${this.value}</span>
     </div>
 
     <!--Заполненная часть слайдера-->
-    <div class="slider__progress" style="width: 0%;"></div>
+    <div class="slider__progress" style="width: ${100 * this.value / (this.steps-1)}%;"></div>
 
     <!--Шаги слайдера-->
     <div class="slider__steps">
@@ -32,9 +32,13 @@ export default class StepSlider {
   }
 
   #templateSpan() {
-    let spans = '<span class="slider__step-active"></span>';
-    for(let i = 1; i < this.steps; i++) {
-      spans += '<span></span>';
+    let spans = '';
+    for(let i = 0; i < this.steps; i++) {
+      if (i === this.value) {
+        spans += '<span class="slider__step-active"></span>'
+      } else {
+        spans += '<span></span>';
+      }
     }
     return spans;
   }
