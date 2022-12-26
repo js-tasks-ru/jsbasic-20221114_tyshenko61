@@ -13,7 +13,7 @@ export default class RibbonMenu {
     `
     <div class="ribbon">
       <!--Кнопка прокрутки влево-->
-      <button class="ribbon__arrow ribbon__arrow_left ribbon__arrow_visible">
+      <button class="ribbon__arrow ribbon__arrow_left">
         <img src="/assets/images/icons/angle-icon.svg" alt="icon">
       </button>
 
@@ -22,7 +22,7 @@ export default class RibbonMenu {
           ${this.#categories.map(item => `<a href="#" class="ribbon__item" data-id="${item.id}">${item.name}</a>`).join('')}
       </nav>
       <!--Кнопка прокрутки вправо-->
-      <button class="ribbon__arrow ribbon__arrow_right">
+      <button class="ribbon__arrow ribbon__arrow_right  ribbon__arrow_visible">
         <img src="/assets/images/icons/angle-icon.svg" alt="icon">
       </button>
     </div>
